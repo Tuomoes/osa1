@@ -8,6 +8,25 @@ const Otsikko = (props) => {
     )
   }
 
+const Osa = (props) => {
+  return (
+    <div>
+      <p>{props.osa} {props.tehtavat}</p>
+    </div>
+  )
+}
+
+const Sisalto = (props) => {
+    return (
+      <div>
+        <Osa osa={props.osa[0]} tehtavat={props.tehtavat[0]}/>
+        <Osa osa={props.osa[1]} tehtavat={props.tehtavat[1]}/>
+        <Osa osa={props.osa[2]} tehtavat={props.tehtavat[2]}/>
+      </div>
+    )
+}
+
+  /** 
 const Sisalto = (props) => {
     return (
       <div>
@@ -15,6 +34,7 @@ const Sisalto = (props) => {
       </div>
     )
   }
+  **/
 
 const Yhteensa = (props) => {
     return (
@@ -37,9 +57,7 @@ const App = () => {
   return (
     <div>
       <Otsikko kurssi={kurssi}/>
-      <Sisalto osa={osa1} tehtavat={tehtavia1}/>
-      <Sisalto osa={osa2} tehtavat={tehtavia2}/>
-      <Sisalto osa={osa3} tehtavat={tehtavia3}/>
+      <Sisalto osa={[osa1, osa2, osa3]} tehtavat={[tehtavia1, tehtavia2, tehtavia3]}/>
       <Yhteensa tehtavat={[tehtavia1, tehtavia2, tehtavia3]}/>  
     </div>
   )
