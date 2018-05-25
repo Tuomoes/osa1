@@ -13,27 +13,42 @@ class App extends React.Component {
         this.hyva = 'hyvä'
         this.neutraali = 'neutraali'
         this.huono = 'huono'
+
+        this.ka = 'keskiarvo'
+
         this.state = {
             hyvaCounter: 0,
             neutraaliCount: 0,
-            huonoCount: 0
+            huonoCount: 0,
+            avg: 0
         }
       }
   
 
   
   increaseHyva = () => {
-    this.setState({ hyvaCounter: this.state.hyvaCounter + 1 })
+    this.setState({ hyvaCounter: this.state.hyvaCounter + 1, avg: 
+        (this.state.hyvaCounter * 1.0 + this.state.neutraaliCount * 0.0 + this.state.huonoCount * -1.0) / 
+        (this.state.hyvaCounter + this.state.neutraaliCount + this.state.huonoCount)})
+    //this.countAvg.bind(this)
   }
 
   increaseNeutraali = () => {
     this.setState({ neutraaliCount: this.state.neutraaliCount + 1 })
+    //this.countAvg.bind(this)
   }
 
   increaseHuono = () => {
       this.setState({ huonoCount: this.state.huonoCount + 1})
+      //this.countAvg.bind(this)
   }
 
+  countAvg() {
+      this.setState({ avg: 
+        (this.state.hyvaCounter * 1.0 + this.state.neutraaliCount * 0.0 + this.state.huonoCount * -1.0) / 
+        (this.state.hyvaCounter + this.state.neutraaliCount + this.state.huonoCount)
+    })
+  }
 
   render() {
     return (
@@ -52,6 +67,7 @@ class App extends React.Component {
           <p>{this.hyva} {this.state.hyvaCounter}</p>
           <p>{this.neutraali} {this.state.neutraaliCount}</p>
           <p>{this.huono} {this.state.huonoCount}</p>
+          <p>{this.ka} {this.state.avg}</p>
         </div>
       )
   }
