@@ -20,30 +20,31 @@ class App extends React.Component {
             hyvaCounter: 0,
             neutraaliCount: 0,
             huonoCount: 0,
-            avg: 0
+            avg: 0.0
         }
       }
   
 
   
   increaseHyva = () => {
-    this.setState({ hyvaCounter: this.state.hyvaCounter + 1, avg: 
-        (this.state.hyvaCounter * 1.0 + this.state.neutraaliCount * 0.0 + this.state.huonoCount * -1.0) / 
-        (this.state.hyvaCounter + this.state.neutraaliCount + this.state.huonoCount)})
+    this.setState({ hyvaCounter: this.state.hyvaCounter + 1});
+    this.countAvg();
     //this.countAvg.bind(this)
   }
 
   increaseNeutraali = () => {
-    this.setState({ neutraaliCount: this.state.neutraaliCount + 1 })
+    this.setState({ neutraaliCount: this.state.neutraaliCount + 1});
+    this.countAvg();
     //this.countAvg.bind(this)
   }
 
   increaseHuono = () => {
-      this.setState({ huonoCount: this.state.huonoCount + 1})
+      this.setState({ huonoCount: this.state.huonoCount + 1});
+      this.countAvg();
       //this.countAvg.bind(this)
   }
 
-  countAvg() {
+  countAvg = () => {
       this.setState({ avg: 
         (this.state.hyvaCounter * 1.0 + this.state.neutraaliCount * 0.0 + this.state.huonoCount * -1.0) / 
         (this.state.hyvaCounter + this.state.neutraaliCount + this.state.huonoCount)
