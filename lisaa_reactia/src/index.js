@@ -8,7 +8,7 @@ class App extends React.Component {
     constructor() {
         super()
         this.title1 = 'anna palautetta'
-        this.titl2 = 'statistiikka'
+        this.title2 = 'statistiikka'
         
         this.hyva = 'hyvä'
         this.neutraali = 'neutraali'
@@ -27,28 +27,22 @@ class App extends React.Component {
 
   
   increaseHyva = () => {
-    this.setState({ hyvaCounter: this.state.hyvaCounter + 1});
-    this.countAvg();
-    //this.countAvg.bind(this)
+    this.setState({ hyvaCounter: this.state.hyvaCounter + 1}, () => this.countAvg());
   }
 
   increaseNeutraali = () => {
-    this.setState({ neutraaliCount: this.state.neutraaliCount + 1});
-    this.countAvg();
-    //this.countAvg.bind(this)
+    this.setState({ neutraaliCount: this.state.neutraaliCount + 1}, () => this.countAvg());
   }
 
   increaseHuono = () => {
-      this.setState({ huonoCount: this.state.huonoCount + 1});
-      this.countAvg();
-      //this.countAvg.bind(this)
+      this.setState({ huonoCount: this.state.huonoCount + 1}, () => this.countAvg());
   }
 
   countAvg = () => {
       this.setState({ avg: 
         (this.state.hyvaCounter * 1.0 + this.state.neutraaliCount * 0.0 + this.state.huonoCount * -1.0) / 
         (this.state.hyvaCounter + this.state.neutraaliCount + this.state.huonoCount)
-    })
+     });
   }
 
   render() {
@@ -64,7 +58,7 @@ class App extends React.Component {
           <button title='HUONO BUTTON' onClick={this.increaseHuono.bind(this)}>
             huono
           </button>
-          <h1>{this.titl2}</h1>
+          <h1>{this.title2}</h1>
           <p>{this.hyva} {this.state.hyvaCounter}</p>
           <p>{this.neutraali} {this.state.neutraaliCount}</p>
           <p>{this.huono} {this.state.huonoCount}</p>
