@@ -15,34 +15,52 @@ class App extends React.Component {
         this.huono = 'huono'
 
         this.ka = 'keskiarvo'
+        this.positiivisia = 'positiivisia'
+        this.positiivisiaUnit = '%'
 
         this.state = {
             hyvaCounter: 0,
             neutraaliCount: 0,
             huonoCount: 0,
-            avg: 0.0
+            avg: (0.0).toFixed(1),
+            positives: (0.0).toFixed(1)
         }
       }
   
 
   
   increaseHyva = () => {
-    this.setState({ hyvaCounter: this.state.hyvaCounter + 1}, () => this.countAvg());
+    this.setState({ hyvaCounter: this.state.hyvaCounter + 1}, () => {
+      this.countAvg()
+      this.countPositives()
+    });
   }
 
   increaseNeutraali = () => {
-    this.setState({ neutraaliCount: this.state.neutraaliCount + 1}, () => this.countAvg());
+    this.setState({ neutraaliCount: this.state.neutraaliCount + 1}, () => {
+      this.countAvg()
+      this.countPositives()
+    });
   }
 
   increaseHuono = () => {
-      this.setState({ huonoCount: this.state.huonoCount + 1}, () => this.countAvg());
+      this.setState({ huonoCount: this.state.huonoCount + 1}, () => {
+        this.countAvg()
+        this.countPositives()
+      });
   }
 
   countAvg = () => {
       this.setState({ avg: 
-        (this.state.hyvaCounter * 1.0 + this.state.neutraaliCount * 0.0 + this.state.huonoCount * -1.0) / 
-        (this.state.hyvaCounter + this.state.neutraaliCount + this.state.huonoCount)
+        ((this.state.hyvaCounter * 1.0 + this.state.neutraaliCount * 0.0 + this.state.huonoCount * -1.0) / 
+        (this.state.hyvaCounter + this.state.neutraaliCount + this.state.huonoCount)).toFixed(1)
      });
+  }
+
+  countPositives = () => {
+    this.setState({ positives: 
+      (100.0 * (this.state.hyvaCounter) / (this.state.hyvaCounter + this.state.neutraaliCount + this.state.huonoCount)).toFixed(1)
+    });
   }
 
   render() {
@@ -63,6 +81,8 @@ class App extends React.Component {
           <p>{this.neutraali} {this.state.neutraaliCount}</p>
           <p>{this.huono} {this.state.huonoCount}</p>
           <p>{this.ka} {this.state.avg}</p>
+          <p>{this.positiivisia} {this.state.positives} {this.positiivisiaUnit}</p>
+          
         </div>
       )
   }
