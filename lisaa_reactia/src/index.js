@@ -3,15 +3,24 @@ import ReactDOM from 'react-dom'
 
 
 const Statistics = (props) => {
-  return (
-    <div>
-      <Statistic statTopic={props.counterTopics[0]} counter={props.counters[0]}/>
-      <Statistic statTopic={props.counterTopics[1]} counter={props.counters[1]}/>
-      <Statistic statTopic={props.counterTopics[2]} counter={props.counters[2]}/>
-      <Statistic statTopic={props.avgTopic} counter={props.avg}/>
-      <Statistic statTopic={props.posTopic} counter={props.positives} unit={props.posUnit}/>
-    </div>
-  )
+  if ((props.counters[0] + props.counters[1] + props.counters[2]) == 0)  {
+    return (
+      <div>
+        <p>ei yhtään palautetta annettu</p>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <Statistic statTopic={props.counterTopics[0]} counter={props.counters[0]}/>
+        <Statistic statTopic={props.counterTopics[1]} counter={props.counters[1]}/>
+        <Statistic statTopic={props.counterTopics[2]} counter={props.counters[2]}/>
+        <Statistic statTopic={props.avgTopic} counter={props.avg}/>
+        <Statistic statTopic={props.posTopic} counter={props.positives} unit={props.posUnit}/>
+      </div>
+    )
+  }
+  
 }
 
 const Statistic = (props) => {
