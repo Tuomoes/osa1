@@ -2,6 +2,26 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 
+const Statistics = (props) => {
+  return (
+    <div>
+      <Statistic statTopic={props.counterTopics[0]} counter={props.counters[0]}/>
+      <Statistic statTopic={props.counterTopics[1]} counter={props.counters[1]}/>
+      <Statistic statTopic={props.counterTopics[2]} counter={props.counters[2]}/>
+      <Statistic statTopic={props.avgTopic} counter={props.avg}/>
+      <Statistic statTopic={props.posTopic} counter={props.positives} unit={props.posUnit}/>
+    </div>
+  )
+}
+
+const Statistic = (props) => {
+  return (
+    <div>
+      <p>{props.statTopic} {props.counter} {props.unit}</p>
+    </div>
+  ) 
+  
+}
 
 class App extends React.Component {
   
@@ -10,6 +30,7 @@ class App extends React.Component {
         this.title1 = 'anna palautetta'
         this.title2 = 'statistiikka'
         
+
         this.hyva = 'hyvä'
         this.neutraali = 'neutraali'
         this.huono = 'huono'
@@ -19,7 +40,7 @@ class App extends React.Component {
         this.positiivisiaUnit = '%'
 
         this.state = {
-            hyvaCounter: 0,
+            hyvaCount: 0,
             neutraaliCount: 0,
             huonoCount: 0,
             avg: (0.0).toFixed(1),
@@ -30,7 +51,7 @@ class App extends React.Component {
 
   
   increaseHyva = () => {
-    this.setState({ hyvaCounter: this.state.hyvaCounter + 1}, () => {
+    this.setState({ hyvaCount: this.state.hyvaCount + 1}, () => {
       this.countAvg()
       this.countPositives()
     });
@@ -52,14 +73,14 @@ class App extends React.Component {
 
   countAvg = () => {
       this.setState({ avg: 
-        ((this.state.hyvaCounter * 1.0 + this.state.neutraaliCount * 0.0 + this.state.huonoCount * -1.0) / 
-        (this.state.hyvaCounter + this.state.neutraaliCount + this.state.huonoCount)).toFixed(1)
+        ((this.state.hyvaCount * 1.0 + this.state.neutraaliCount * 0.0 + this.state.huonoCount * -1.0) / 
+        (this.state.hyvaCount + this.state.neutraaliCount + this.state.huonoCount)).toFixed(1)
      });
   }
 
   countPositives = () => {
     this.setState({ positives: 
-      (100.0 * (this.state.hyvaCounter) / (this.state.hyvaCounter + this.state.neutraaliCount + this.state.huonoCount)).toFixed(1)
+      (100.0 * (this.state.hyvaCount) / (this.state.hyvaCount + this.state.neutraaliCount + this.state.huonoCount)).toFixed(1)
     });
   }
 
@@ -77,12 +98,15 @@ class App extends React.Component {
             huono
           </button>
           <h1>{this.title2}</h1>
-          <p>{this.hyva} {this.state.hyvaCounter}</p>
-          <p>{this.neutraali} {this.state.neutraaliCount}</p>
-          <p>{this.huono} {this.state.huonoCount}</p>
-          <p>{this.ka} {this.state.avg}</p>
-          <p>{this.positiivisia} {this.state.positives} {this.positiivisiaUnit}</p>
-          
+          <Statistics 
+              counterTopics={[this.hyva, this.neutraali, this.huono]} 
+              counters={[this.state.hyvaCount, this.state.neutraaliCount, this.state.huonoCount]}
+              avgTopic={this.ka}
+              avg={this.state.avg}
+              posTopic={this.positiivisia}
+              positives={this.state.positives}
+              posUnit={this.positiivisiaUnit}
+          />          
         </div>
       )
   }
