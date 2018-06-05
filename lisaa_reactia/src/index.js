@@ -2,6 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 
+const FeedbackButton = (props) => {
+  return (
+    <button title={props.buttonTitle} onClick={props.buttonAction}> 
+      {props.buttonText}
+    </button>
+  )
+}
+
 const Statistics = (props) => {
   if ((props.counters[0] + props.counters[1] + props.counters[2]) == 0)  {
     return (
@@ -97,15 +105,21 @@ class App extends React.Component {
     return (
         <div>
           <h1>{this.title1}</h1>
-          <button title='HYVÄ BUTTON' onClick={this.increaseHyva.bind(this)}> 
-            hyvä
-          </button>
-          <button title='NEUTRAALI BUTTON' onClick={this.increaseNeutraali.bind(this)}>
-            neutraali
-          </button>
-          <button title='HUONO BUTTON' onClick={this.increaseHuono.bind(this)}>
-            huono
-          </button>
+          <FeedbackButton
+            buttonTitle={'HYVÄ BUTTON'}
+            buttonText={'hyvä'}
+            buttonAction={this.increaseHyva.bind(this)}
+          />
+          <FeedbackButton
+            buttonTitle={'NEUTRAALI BUTTON'}
+            buttonText={'neutraali'}
+            buttonAction={this.increaseNeutraali.bind(this)}
+          />
+          <FeedbackButton
+            buttonTitle={'HUONO BUTTON'}
+            buttonText={'huono'}
+            buttonAction={this.increaseHuono.bind(this)}
+          />
           <h1>{this.title2}</h1>
           <Statistics 
               counterTopics={[this.hyva, this.neutraali, this.huono]} 
