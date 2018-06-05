@@ -78,14 +78,6 @@ class App extends React.Component {
     });
   }
   
-  
-  increaseHyva = () => {
-    this.setState({ ['hyvaCount']: this.state.hyvaCount + 1}, () => {
-      this.countAvg()
-      this.countPositives()
-    });
-  }
-
   countAvg = () => {
       this.setState({ avg: 
         ((this.state.hyvaCount * 1.0 + this.state.neutraaliCount * 0.0 + this.state.huonoCount * -1.0) / 
