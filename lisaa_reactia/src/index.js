@@ -11,7 +11,7 @@ const FeedbackButton = (props) => {
 }
 
 const Statistics = (props) => {
-  if ((props.counters[0] + props.counters[1] + props.counters[2]) == 0)  {
+  if ((props.counters[0] + props.counters[1] + props.counters[2]) === 0)  {
     return (
       <div>
         <p>ei yhtään palautetta annettu</p>
@@ -20,12 +20,16 @@ const Statistics = (props) => {
   } else {
     return (
       <div>
-        <Statistic statTopic={props.counterTopics[0]} counter={props.counters[0]}/>
-        <Statistic statTopic={props.counterTopics[1]} counter={props.counters[1]}/>
-        <Statistic statTopic={props.counterTopics[2]} counter={props.counters[2]}/>
-        <Statistic statTopic={props.avgTopic} counter={props.avg}/>
-        <Statistic statTopic={props.posTopic} counter={props.positives} unit={props.posUnit}/>
-      </div>
+        <table>
+          <tbody>
+            <Statistic statTopic={props.counterTopics[0]} counter={props.counters[0]}/>
+            <Statistic statTopic={props.counterTopics[1]} counter={props.counters[1]}/>
+            <Statistic statTopic={props.counterTopics[2]} counter={props.counters[2]}/>
+            <Statistic statTopic={props.avgTopic} counter={props.avg}/>
+            <Statistic statTopic={props.posTopic} counter={props.positives} unit={props.posUnit}/>
+          </tbody>
+        </table>
+      </div>  
     )
   }
   
@@ -33,9 +37,10 @@ const Statistics = (props) => {
 
 const Statistic = (props) => {
   return (
-    <div>
-      <p>{props.statTopic} {props.counter} {props.unit}</p>
-    </div>
+    <tr>
+      <td>{props.statTopic} </td> 
+      <td>{props.counter} {props.unit} </td>
+    </tr>
   ) 
   
 }
@@ -94,6 +99,8 @@ class App extends React.Component {
     });
   }
 
+
+
   render() {
     return (
         <div>
@@ -122,7 +129,7 @@ class App extends React.Component {
               posTopic={this.positiivisia}
               positives={this.state.positives}
               posUnit={this.positiivisiaUnit}
-          />          
+          />
         </div>
       )
   }
