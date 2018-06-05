@@ -65,27 +65,20 @@ class App extends React.Component {
         }
       }
   
-
+  
+  feedbackAction = (counter, newValue) => {
+    return () => this.setState({ [counter]: newValue}, () => {
+      this.countAvg()
+      this.countPositives()
+    });
+  }
+  
   
   increaseHyva = () => {
-    this.setState({ hyvaCount: this.state.hyvaCount + 1}, () => {
+    this.setState({ ['hyvaCount']: this.state.hyvaCount + 1}, () => {
       this.countAvg()
       this.countPositives()
     });
-  }
-
-  increaseNeutraali = () => {
-    this.setState({ neutraaliCount: this.state.neutraaliCount + 1}, () => {
-      this.countAvg()
-      this.countPositives()
-    });
-  }
-
-  increaseHuono = () => {
-      this.setState({ huonoCount: this.state.huonoCount + 1}, () => {
-        this.countAvg()
-        this.countPositives()
-      });
   }
 
   countAvg = () => {
@@ -108,17 +101,17 @@ class App extends React.Component {
           <FeedbackButton
             buttonTitle={'HYVÄ BUTTON'}
             buttonText={'hyvä'}
-            buttonAction={this.increaseHyva.bind(this)}
+            buttonAction={this.feedbackAction('hyvaCount', this.state.hyvaCount + 1)}
           />
           <FeedbackButton
             buttonTitle={'NEUTRAALI BUTTON'}
             buttonText={'neutraali'}
-            buttonAction={this.increaseNeutraali.bind(this)}
+            buttonAction={this.feedbackAction('neutraaliCount', this.state.neutraaliCount + 1)}
           />
           <FeedbackButton
             buttonTitle={'HUONO BUTTON'}
             buttonText={'huono'}
-            buttonAction={this.increaseHuono.bind(this)}
+            buttonAction={this.feedbackAction('huonoCount', this.state.huonoCount + 1)}
           />
           <h1>{this.title2}</h1>
           <Statistics 
