@@ -71,6 +71,7 @@ class App extends React.Component {
       }
   
   
+
   feedbackAction = (counter, newValue) => {
     return () => this.setState({ [counter]: newValue}, () => {
       this.countAvg()
