@@ -6,14 +6,8 @@ class App extends React.Component {
     super(props)
     this.state = {
       selected: 0,
-      points: {
-          0: 0,
-          1: 0,
-          2: 0,
-          3: 0,
-          4: 0,
-          5: 0
-      }
+      topAnecdote: 0,
+      points: [0, 0, 0, 0, 0, 0]
     }
   }
 
@@ -33,12 +27,21 @@ class App extends React.Component {
 
     voteAnecdote = () => {
         return () => {
-            const copyPoints = { ...this.state.points }
+            const copyPoints = [ ...this.state.points ]
             copyPoints[this.state.selected] += 1
-            this.setState({points: copyPoints})
+
+            let topAnecdote = 0
+            copyPoints.forEach((x, i) => {
+                if (x > copyPoints[topAnecdote]) topAnecdote = i
+            })
+
+            this.setState({
+                points: copyPoints,
+                topAnecdote: topAnecdote
+            })
+
         }
     }
-
 
 
 
@@ -51,6 +54,8 @@ class App extends React.Component {
             <button onClick={this.voteAnecdote()}>vote</button>
             <button onClick={this.selectRandomAnecdote()}>next anecdote</button>   
         </p>
+        <h2>anecdote with most wotes:</h2>
+        <p>{anecdotes[this.state.topAnecdote]}</p>
       </div>
     )
   }
