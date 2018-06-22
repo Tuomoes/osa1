@@ -5,31 +5,52 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: 0
+      selected: 0,
+      points: {
+          0: 0,
+          1: 0,
+          2: 0,
+          3: 0,
+          4: 0,
+          5: 0
+      }
     }
   }
 
-/**
- * Returns a random integer between min (inclusive) and max (inclusive)
- * Using Math.round() will give you a non-uniform distribution!
- */
-getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-selectRandomAnecdote = () => {
-    return () => { 
-        this.setState({selected: this.getRandomInt(0, anecdotes.length - 1)})
+    /**
+     * Returns a random integer between min (inclusive) and max (inclusive)
+     * Using Math.round() will give you a non-uniform distribution!
+     */
+    getRandomInt = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    
-}
+
+    selectRandomAnecdote = () => {
+        return () => { 
+            this.setState({selected: this.getRandomInt(0, anecdotes.length - 1)})
+        }
+    }
+
+    voteAnecdote = () => {
+        return () => {
+            const copyPoints = { ...this.state.points }
+            copyPoints[this.state.selected] += 1
+            this.setState({points: copyPoints})
+        }
+    }
+
+
 
 
   render() {
     return (
       <div>
         <p>{this.props.anecdotes[this.state.selected]}</p>
-        <p><button onClick={this.selectRandomAnecdote()}>next anecdote</button></p>
+        <p>has {this.state.points[this.state.selected]} votes</p>
+        <p>
+            <button onClick={this.voteAnecdote()}>vote</button>
+            <button onClick={this.selectRandomAnecdote()}>next anecdote</button>   
+        </p>
       </div>
     )
   }
